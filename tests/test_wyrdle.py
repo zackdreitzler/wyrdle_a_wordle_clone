@@ -31,3 +31,12 @@ class TestWyrdle:
         winner, positions = wyrdle.check_guess(guess, word_to_guess)
         assert winner 
         assert positions == [1, 1, 1, 1, 1]
+    
+    def test_get_guess_success(self):
+        pass
+
+    def test_get_guess_bad_length(self):
+        pass
+
+    def test_get_guess_bad_characters(self):
+        pass
