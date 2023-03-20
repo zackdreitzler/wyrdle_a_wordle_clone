@@ -40,6 +40,23 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
     return 0, positions
 
 
+def get_guess(guess_num: int) -> str:
+    """
+    Description:
+        Get a valid guess from standard input. A valid guess is an 5
+        letter words consisting of alphanumeric characters.
+    Arguements:
+        guess_num: int, the current guess number.
+    Returns:
+        guess: string, a valid guess.
+    """
+    
+    # while True:
+    #     input(f"\nGuess {guess_num}: ").upper()
+
+    return "GUESS"
+
+
 def main():
     """
     Description:
@@ -48,9 +65,11 @@ def main():
     """
     word_to_guess = get_guess_word()
 
-    for guess_num in range(1,7):
-        guess = input(f"\nGuess {guess_num}: ").upper()
-        
+    guess_num = 1
+    while guess_num < 7:
+
+        guess = get_guess(guess_num)
+
         winner, positions = check_guess(guess, word_to_guess)
 
         if winner:
@@ -58,6 +77,7 @@ def main():
             break
 
         print(positions)
+        guess_num += 1
             
     else:
         print(f"The word was {word_to_guess}")
