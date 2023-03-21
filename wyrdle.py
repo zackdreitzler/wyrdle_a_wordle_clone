@@ -50,11 +50,18 @@ def get_guess(guess_num: int) -> str:
     Returns:
         guess: string, a valid guess.
     """
-    
-    # while True:
-    #     input(f"\nGuess {guess_num}: ").upper()
+    for i in range(100):
+        guess = input(f"\nGuess {guess_num}: ").upper()
 
-    return "GUESS"
+        if len(guess) != 5:
+            print("Please enter a guess of length 5.")
+        elif all([_.isalnum() for _ in guess]):
+            return guess
+        else:
+            print("Please enter all alphanumeric characters.")
+    
+    print("Max number of guess attempts reached.")
+    return 'ABCDE'
 
 
 def main():
