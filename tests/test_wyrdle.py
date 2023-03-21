@@ -1,5 +1,5 @@
+from io import StringIO
 import wyrdle
-from pytest import raises
 
 class TestWyrdle:
 
@@ -32,11 +32,43 @@ class TestWyrdle:
         assert winner 
         assert positions == [1, 1, 1, 1, 1]
     
-    def test_get_guess_success(self):
-        pass
+    def test_get_guess_success(self, monkeypatch):
+        """
+        This test checks to make sure we receive a valid input from the 
+        user. 
+        
+        A valid input is a string of 5 alphanumeric characters.
+        """
+        monkeypatch.setattr('builtins.input', lambda _: "SNEAK")
+        guess = wyrdle.get_guess(0)
+        assert guess == "SNEAK"
 
-    def test_get_guess_bad_length(self):
-        pass
+    def test_get_guess_not_all_alphanumeric(self, monkeypatch, capsys):
+        """
+        This test checks to make sure we receive a the default input and
+        the print message about alphanumeric characters after a user 
+        fails to input a valid input. 
+        
+        A valid input is a string of 5 alphanumeric characters.
+        """
+        monkeypatch.setattr('builtins.input', lambda _: "@@@@@")
+        guess = wyrdle.get_guess(0)
+        captured_output = capsys.readouterr()
+        assert guess == "ABCDE"
+        assert "Please enter all alphanumeric characters." in captured_output.out
+        assert "Max number of guess attempts reached." in captured_output.out
 
-    def test_get_guess_bad_characters(self):
-        pass
+    def test_get_guess_incorrect_length(self, monkeypatch, capsys):
+        """
+        This test checks to make sure we receive a the default input and
+        the print message about alphanumeric characters after a user 
+        fails to input a valid input. 
+        
+        A valid input is a string of 5 alphanumeric characters.
+        """
+        monkeypatch.setattr('builtins.input', lambda _: "ABCDEF")
+        guess = wyrdle.get_guess(0)
+        captured_output = capsys.readouterr()
+        assert guess == "ABCDE"
+        assert "Please enter a guess of length 5." in captured_output.out
+        assert "Max number of guess attempts reached." in captured_output.out
