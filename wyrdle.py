@@ -1,5 +1,47 @@
 from get_word import get_guess_word
 
+from rich.console import Console
+from rich.console import Theme
+
+console = Console(width=100, theme=Theme({"warning": "red on yellow"}))
+
+
+def main():
+    """
+    Description:
+        This is a clone of the popular Wordle game. A player gets 6 guesses to guess
+        a random 5 letter word. 
+    """
+    word_to_guess = get_guess_word()
+    
+    for guess_num in range(1,7):
+        
+        refresh_console(f"Guess: {guess_num}")
+
+        guess = get_guess()
+
+        winner, positions = check_guess(guess, word_to_guess)
+
+        if winner:
+            print(f"Congrats! You Won!")
+            break
+
+        guess_num += 1
+            
+    else:
+        print(f"The word was {word_to_guess}")
+
+
+def refresh_console(headline):
+    """
+    Description: 
+        This refreshes the console and displays game information for the user.
+    Arguments:
+        headline: string, the headline to print at the top of the console.
+    """
+    console.clear()
+    console.rule(f"[bold blue]:computer: {headline} :computer:[/]\n")
+
 def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
     """
     Description: 
@@ -40,7 +82,7 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
     return 0, positions
 
 
-def get_guess(guess_num: int) -> str:
+def get_guess() -> str:
     """
     Description:
         Get a valid guess from standard input. A valid guess is an 5
@@ -51,7 +93,7 @@ def get_guess(guess_num: int) -> str:
         guess: string, a valid guess.
     """
     for _ in range(100):
-        guess = input(f"\nGuess {guess_num}: ").upper()
+        guess = input(f"\nGuess a word: ").upper()
 
         if len(guess) != 5:
             print("Please enter a guess of length 5.", flush=True)
@@ -62,32 +104,6 @@ def get_guess(guess_num: int) -> str:
     
     print("Max number of guess attempts reached.")
     return 'ABCDE'
-
-
-def main():
-    """
-    Description:
-        This is a clone of the popular Wordle game. A player gets 6 guesses to guess
-        a random 5 letter word. 
-    """
-    word_to_guess = get_guess_word()
-
-    guess_num = 1
-    while guess_num < 7:
-
-        guess = get_guess(guess_num)
-
-        winner, positions = check_guess(guess, word_to_guess)
-
-        if winner:
-            print(f"Congrats! You Won!")
-            break
-
-        print(positions)
-        guess_num += 1
-            
-    else:
-        print(f"The word was {word_to_guess}")
 
 
 if __name__ == "__main__":
