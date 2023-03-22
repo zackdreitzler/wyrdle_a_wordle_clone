@@ -29,10 +29,10 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
         return 1, [1]*5
     
     positions = []
-    for index in range(len(word_to_guess)):
-        if guess[index] == word_to_guess[index]:
+    for _ in range(len(word_to_guess)):
+        if guess[_] == word_to_guess[_]:
             positions.append(1)
-        elif guess[index] in word_to_guess:
+        elif guess[_] in word_to_guess:
             positions.append(2)
         else:
             positions.append(0)
@@ -50,15 +50,15 @@ def get_guess(guess_num: int) -> str:
     Returns:
         guess: string, a valid guess.
     """
-    for i in range(100):
+    for _ in range(100):
         guess = input(f"\nGuess {guess_num}: ").upper()
 
         if len(guess) != 5:
-            print("Please enter a guess of length 5.")
+            print("Please enter a guess of length 5.", flush=True)
         elif all([_.isalnum() for _ in guess]):
             return guess
         else:
-            print("Please enter all alphanumeric characters.")
+            print("Please enter all alphanumeric characters.", flush=True)
     
     print("Max number of guess attempts reached.")
     return 'ABCDE'
