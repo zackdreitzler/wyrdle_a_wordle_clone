@@ -29,7 +29,7 @@ def main():
         print(f"The word was {word_to_guess}")
 
 
-def refresh_console(headline):
+def refresh_console(headline: str):
     """
     Description: 
         This refreshes the console and displays game information for the user.
