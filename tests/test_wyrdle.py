@@ -72,3 +72,9 @@ class TestWyrdle:
         assert guess == "ABCDE"
         assert "Please enter a guess of length 5." in captured_output.out
         assert "Max number of guess attempts reached." in captured_output.out
+
+    def test_get_rich_formatted_str(self):
+        guess = 'HELLO'
+        positions = [0,1,2,0,0]
+        output = wyrdle.get_rich_formatted_str(positions, guess)
+        assert output == "[white on #666666]H[/][bold white on green]E[/][bold white on yellow]L[/][white on #666666]L[/][white on #666666]O[/]"
