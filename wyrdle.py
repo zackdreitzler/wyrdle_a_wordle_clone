@@ -13,7 +13,7 @@ def main() -> None:
         a random 5 letter word. 
     """
     word_to_guess: str = get_guess_word()
-    guesses_to_print: str = ""
+    guesses_to_print: list[str] = []
     for guess_num in range(1,7):
         
         refresh_console(f"Guess: {guess_num}")
@@ -22,7 +22,7 @@ def main() -> None:
         guess: str = get_guess()
         winner, positions = check_guess(guess, word_to_guess)
 
-        guesses_to_print += get_rich_formatted_str(positions, guess)
+        guesses_to_print.append(get_rich_formatted_str(positions, guess))
 
         if winner:
             print(f"Congrats! You Won!")
@@ -49,10 +49,11 @@ def print_guesses(guesses_to_print: str) -> None:
     Arguments:
         guesses_to_print: str, a rich formatted string for printing each guess to the console.
     """
-    console.print(guesses_to_print, justify="center")
+    for guess in guesses_to_print:
+        console.print(guess, justify="center")
 
 
-def get_rich_formatted_str(positions: list(int), guess: str) -> str:
+def get_rich_formatted_str(positions: list[int], guess: str) -> str:
     """
     Description:
         This function takes the last guess and creates a rich styled string. This will be
@@ -64,13 +65,13 @@ def get_rich_formatted_str(positions: list(int), guess: str) -> str:
         result: str, a string formatted for printing to the console using rich.
     """
     result: str = ""
-    for p, g in positions, guess:
-        if p == 0:
-            result += (f"[white on #666666]{g}[/]")
-        elif p == 1:
-            result += (f"[bold white on green]{g}[/]")
+    for _ in range(len(positions)):
+        if positions[_] == 0:
+            result += (f"[white on #666666]{guess[_]}[/]")
+        elif positions[_] == 1:
+            result += (f"[bold white on green]{guess[_]}[/]")
         else:
-            result += (f"[bold white on yellow]{g}[/]")
+            result += (f"[bold white on yellow]{guess[_]}[/]")
     return result
 
 
