@@ -74,6 +74,10 @@ class TestWyrdle:
         assert "Max number of guess attempts reached." in captured_output.out
 
     def test_get_rich_formatted_str(self):
+        """
+        This test confirms that each character in  a guess is properly formatted
+        for output by the rich console.
+        """
         guess = 'HELLO'
         positions = [0,1,2,0,0]
         output = wyrdle.get_rich_formatted_str(positions, guess)
