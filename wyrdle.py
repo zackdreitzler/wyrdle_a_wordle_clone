@@ -12,22 +12,19 @@ def main():
         This is a clone of the popular Wordle game. A player gets 6 guesses to guess
         a random 5 letter word. 
     """
-    word_to_guess = get_guess_word()
+    word_to_guess: str = get_guess_word()
     
     for guess_num in range(1,7):
         
         refresh_console(f"Guess: {guess_num}")
 
-        guess = get_guess()
+        guess: str = get_guess()
 
         winner, positions = check_guess(guess, word_to_guess)
 
         if winner:
             print(f"Congrats! You Won!")
-            break
-
-        guess_num += 1
-            
+            break            
     else:
         print(f"The word was {word_to_guess}")
 
@@ -70,7 +67,7 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
     if guess == word_to_guess: 
         return 1, [1]*5
     
-    positions = []
+    positions: list[int] = []
     for _ in range(len(word_to_guess)):
         if guess[_] == word_to_guess[_]:
             positions.append(1)
@@ -93,7 +90,7 @@ def get_guess() -> str:
         guess: string, a valid guess.
     """
     for _ in range(100):
-        guess = input(f"\nGuess a word: ").upper()
+        guess: str = input(f"\nGuess a word: ").upper()
 
         if len(guess) != 5:
             print("Please enter a guess of length 5.", flush=True)

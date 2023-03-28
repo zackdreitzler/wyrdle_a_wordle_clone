@@ -7,5 +7,5 @@ def get_guess_word() -> str:
 
     Returns: A string representing the word to guess.
     """
-    word_list = ["SNAKE", "AORTA", "TIGER", "LEMON"]
+    word_list: list(str) = ["SNAKE", "AORTA", "TIGER", "LEMON"]
     return choice(word_list)
