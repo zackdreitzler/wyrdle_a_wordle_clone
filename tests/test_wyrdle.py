@@ -40,7 +40,7 @@ class TestWyrdle:
         A valid input is a string of 5 alphanumeric characters.
         """
         monkeypatch.setattr('builtins.input', lambda _: "SNEAK")
-        guess = wyrdle.get_guess(0)
+        guess = wyrdle.get_guess()
         assert guess == "SNEAK"
 
     def test_get_guess_not_all_alphanumeric(self, monkeypatch, capsys):
@@ -52,7 +52,7 @@ class TestWyrdle:
         A valid input is a string of 5 alphanumeric characters.
         """
         monkeypatch.setattr('builtins.input', lambda _: "@@@@@")
-        guess = wyrdle.get_guess(0)
+        guess = wyrdle.get_guess()
         captured_output = capsys.readouterr()
         assert guess == "ABCDE"
         assert "Please enter all alphanumeric characters." in captured_output.out
@@ -67,7 +67,7 @@ class TestWyrdle:
         A valid input is a string of 5 alphanumeric characters.
         """
         monkeypatch.setattr('builtins.input', lambda _: "ABCDEF")
-        guess = wyrdle.get_guess(0)
+        guess = wyrdle.get_guess()
         captured_output = capsys.readouterr()
         assert guess == "ABCDE"
         assert "Please enter a guess of length 5." in captured_output.out
