@@ -3,7 +3,7 @@ from random import choice
 from rich.console import Console
 from rich.console import Theme
 
-console = Console(width=800, theme=Theme({"warning": "red on yellow"}))
+console = Console(width=100, theme=Theme({"warning": "red on yellow"}))
 
 
 def main() -> None:
