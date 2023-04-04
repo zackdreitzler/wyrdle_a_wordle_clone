@@ -3,7 +3,7 @@ from random import choice
 from rich.console import Console
 from rich.console import Theme
 
-console = Console(width=100, theme=Theme({"warning": "red on yellow"}))
+console = Console(width=800, theme=Theme({"warning": "red on yellow"}))
 
 
 def main() -> None:
@@ -20,6 +20,9 @@ def main() -> None:
         print_guesses(guesses_to_print)
 
         guess: str = get_guess()
+
+        winner: int
+        positions: list(int)
         winner, positions = check_guess(guess, word_to_guess)
 
         guesses_to_print.append(get_rich_formatted_str(positions, guess))
@@ -65,13 +68,13 @@ def get_rich_formatted_str(positions: list[int], guess: str) -> str:
         result: str, a string formatted for printing to the console using rich.
     """
     result: str = ""
-    for _ in range(len(positions)):
-        if positions[_] == 0:
-            result += (f"[white on #666666]{guess[_]}[/]")
-        elif positions[_] == 1:
-            result += (f"[bold white on green]{guess[_]}[/]")
+    for position, guess_char in zip(positions, guess):
+        if position == 0:
+            result += (f"[white on #666666]{guess_char}[/]")
+        elif position == 1:
+            result += (f"[bold white on green]{guess_char}[/]")
         else:
-            result += (f"[bold white on yellow]{guess[_]}[/]")
+            result += (f"[bold white on yellow]{guess_char}[/]")
     return result
 
 
@@ -104,10 +107,10 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
         return 1, [1]*5
     
     positions: list[int] = []
-    for _ in range(len(word_to_guess)):
-        if guess[_] == word_to_guess[_]:
+    for guess_char, word_to_guess_char in zip(guess,word_to_guess):
+        if guess_char == word_to_guess_char:
             positions.append(1)
-        elif guess[_] in word_to_guess:
+        elif guess_char in word_to_guess:
             positions.append(2)
         else:
             positions.append(0)
@@ -149,7 +152,7 @@ def get_guess_word() -> str:
     with open("wordlist.txt") as wordlist:
         word_to_guess: str = choice(wordlist.readlines())
         
-    return word_to_guess.strip()
+    return word_to_guess.strip().upper()
 
 
 if __name__ == "__main__":
