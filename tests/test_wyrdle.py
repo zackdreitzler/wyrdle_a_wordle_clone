@@ -1,4 +1,3 @@
-from io import StringIO
 import wyrdle
 
 class TestWyrdle:
