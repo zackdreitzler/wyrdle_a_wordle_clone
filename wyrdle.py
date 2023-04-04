@@ -13,10 +13,12 @@ def main() -> None:
         a random 5 letter word. 
     """
     word_to_guess: str = get_guess_word()
+    word_to_guess = 'HELLO'
     guesses_to_print: list[str] = []
+    final_message: str = ""
     for guess_num in range(1,7):
         
-        refresh_console(f"Guess: {guess_num}")
+        refresh_console(f"[bold blue]:computer: Guess: {guess_num} :computer:[/]\n")
         print_guesses(guesses_to_print)
 
         guess: str = get_guess()
@@ -28,10 +30,14 @@ def main() -> None:
         guesses_to_print.append(get_rich_formatted_str(positions, guess))
 
         if winner:
-            print(f"Congrats! You Won!")
+            final_message = f"[bold green]:exclamation: Congratulations! You have won! :exclamation:[/]"
             break            
     else:
-        print(f"The word was {word_to_guess}")
+        final_message = f"[bold red]:skull: Sorry you have lost! The word was {word_to_guess}. :skull:[/]"
+    
+    refresh_console(final_message)
+    print_guesses(guesses_to_print)
+
 
 
 def refresh_console(headline: str) -> None:
@@ -42,7 +48,7 @@ def refresh_console(headline: str) -> None:
         headline: string, the headline to print at the top of the console.
     """
     console.clear()
-    console.rule(f"[bold blue]:computer: {headline} :computer:[/]\n")
+    console.rule(headline)
 
 
 def print_guesses(guesses_to_print: str) -> None:
