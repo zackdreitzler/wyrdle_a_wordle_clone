@@ -82,3 +82,16 @@ class TestWyrdle:
         positions = [0,1,2,0,0]
         output = wyrdle.get_rich_formatted_str(positions, guess)
         assert output == "[white on #666666]H[/][bold white on green]E[/][bold white on yellow]L[/][white on #666666]L[/][white on #666666]O[/]"
+
+    def test_get_guess_word(self):
+        """
+        This test confirms that get_guess_word returns a valid word from the word list.
+        A valid word is one that is of length 5 and consists of all alphanumeric characters.
+        """
+        word_to_guess = wyrdle.get_guess_word()
+        with open("wordlist.txt") as wordlist:
+            word_list = list(wordlist.readlines())
+
+        assert len(word_to_guess) == 5
+        assert all([letter.isalnum() for letter in word_to_guess])
+        assert word_to_guess + '\n' in word_list
