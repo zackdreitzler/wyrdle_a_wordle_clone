@@ -1,4 +1,4 @@
-from get_word import get_guess_word
+from random import choice 
 
 from rich.console import Console
 from rich.console import Theme
@@ -137,6 +137,19 @@ def get_guess() -> str:
     
     print("Max number of guess attempts reached.")
     return 'ABCDE'
+
+
+def get_guess_word() -> str:
+    """
+    Description: This is a function that grabs the word that will be used 
+    as the word to guess for the wyrdle game.
+
+    Returns: A string representing the word to guess.
+    """
+    with open("wordlist.txt") as wordlist:
+        word_to_guess: str = choice(wordlist.readlines())
+        
+    return word_to_guess.strip()
 
 
 if __name__ == "__main__":
