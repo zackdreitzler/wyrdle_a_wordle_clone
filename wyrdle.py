@@ -1,3 +1,4 @@
+import logging
 from random import choice 
 
 from rich.console import Console
@@ -13,15 +14,19 @@ def main() -> None:
         a random 5 letter word. 
     """
     word_to_guess: str = get_guess_word()
-    word_to_guess = 'HELLO'
     guesses_to_print: list[str] = []
     final_message: str = ""
+    
     for guess_num in range(1,7):
         
         refresh_console(f"[bold blue]:computer: Guess: {guess_num} :computer:[/]\n")
         print_guesses(guesses_to_print)
 
         guess: str = get_guess()
+
+        if not guess:
+            final_message = f"[bold red]:skull: Failed to get a valid guess. Exiting game. :skull:[/]"
+            break
 
         winner: int
         positions: list(int)
@@ -124,7 +129,7 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
     return 0, positions
 
 
-def get_guess() -> str:
+def get_guess() -> str | None:
     """
     Description:
         Get a valid guess from standard input. A valid guess is an 5
@@ -134,18 +139,18 @@ def get_guess() -> str:
     Returns:
         guess: string, a valid guess.
     """
-    for _ in range(100):
+    for _ in range(5):
         guess: str = input(f"\nGuess a word: ").upper()
 
         if len(guess) != 5:
-            print("Please enter a guess of length 5.", flush=True)
+            console.print("Please enter a guess of length 5.")
         elif all([_.isalnum() for _ in guess]):
             return guess.upper()
         else:
-            print("Please enter all alphanumeric characters.", flush=True)
+            console.print("Please enter all alphanumeric characters.")
     
-    print("Max number of guess attempts reached.")
-    return 'ABCDE'
+    console.print("Max number of guess attempts reached.")
+    return None
 
 
 def get_guess_word() -> str:
