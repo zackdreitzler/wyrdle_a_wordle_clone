@@ -53,7 +53,7 @@ class TestWyrdle:
         monkeypatch.setattr('builtins.input', lambda _: "@@@@@")
         guess = wyrdle.get_guess()
         captured_output = capsys.readouterr()
-        assert guess == "ABCDE"
+        assert not guess
         assert "Please enter all alphanumeric characters." in captured_output.out
         assert "Max number of guess attempts reached." in captured_output.out
 
@@ -68,7 +68,7 @@ class TestWyrdle:
         monkeypatch.setattr('builtins.input', lambda _: "ABCDEF")
         guess = wyrdle.get_guess()
         captured_output = capsys.readouterr()
-        assert guess == "ABCDE"
+        assert not guess
         assert "Please enter a guess of length 5." in captured_output.out
         assert "Max number of guess attempts reached." in captured_output.out
 
