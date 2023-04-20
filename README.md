@@ -12,5 +12,4 @@ It is built to be a simple CLI version of the game utilizing the Rich python lib
 
 ![image](https://user-images.githubusercontent.com/23401984/233506571-9f2c823c-68a7-4d2b-8aff-ca77e5c77644.png)
 
-![image](https://user-images.githubusercontent.com/23401984/233506634-fbdfb304-5504-48ac-bcf0-522fe143b020.png)
-
+![image](https://user-images.githubusercontent.com/23401984/233506728-e8e5dd77-dcae-453f-a667-8cdb1e0fe5af.png)
