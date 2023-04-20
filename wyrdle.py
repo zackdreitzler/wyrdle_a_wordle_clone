@@ -1,5 +1,6 @@
 import logging
-from random import choice 
+from random import choice
+from typing import Union, Optional
 
 from rich.console import Console
 from rich.console import Theme
@@ -22,14 +23,14 @@ def main() -> None:
         refresh_console(f"[bold blue]:computer: Guess: {guess_num} :computer:[/]\n")
         print_guesses(guesses_to_print)
 
-        guess: str = get_guess()
+        guess: Optional[str] = get_guess()
 
         if not guess:
             final_message = f"[bold red]:skull: Failed to get a valid guess. Exiting game. :skull:[/]"
             break
 
         winner: int
-        positions: list(int)
+        positions: list[int]
         winner, positions = check_guess(guess, word_to_guess)
 
         guesses_to_print.append(get_rich_formatted_str(positions, guess))
@@ -56,7 +57,7 @@ def refresh_console(headline: str) -> None:
     console.rule(headline)
 
 
-def print_guesses(guesses_to_print: str) -> None:
+def print_guesses(guesses_to_print: list[str]) -> None:
     """
     Description:
         This prints the guesses to the display based on the following style.
@@ -89,7 +90,7 @@ def get_rich_formatted_str(positions: list[int], guess: str) -> str:
     return result
 
 
-def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
+def check_guess(guess: str, word_to_guess: str) -> tuple[bool, list[int]]:
     """
     Description: 
         This function checks to see if the user's guess matches the
@@ -110,12 +111,12 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
                 guess           = "Sneak" 
                 word_to_guess   = "Shack"
 
-                winner = 0
+                winner = False
                 positions = [1, 0, 2, 0, 1]
 
     """
     if guess == word_to_guess: 
-        return 1, [1]*5
+        return True, [1]*5
     
     positions: list[int] = []
     for guess_char, word_to_guess_char in zip(guess,word_to_guess):
@@ -126,7 +127,7 @@ def check_guess(guess: str, word_to_guess: str) -> bool | list[int]:
         else:
             positions.append(0)
 
-    return 0, positions
+    return False, positions
 
 
 def get_guess() -> str | None:
