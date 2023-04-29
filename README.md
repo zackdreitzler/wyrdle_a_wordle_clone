@@ -1,3 +1,6 @@
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+[![format: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
 # wyrdle_a_wordle_clone
 This is a clone of the popular [Wordle game](https://www.nytimes.com/games/wordle/index.html) and inspired by a [RealPython tutorial](https://realpython.com/python-wordle-clone/).
 It is built to be a simple CLI version of the game utilizing the Rich python library.
